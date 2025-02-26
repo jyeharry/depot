@@ -71,4 +71,13 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to products_url
   end
+
+  test "should not destroy product that's in a cart" do
+    product_in_cart = carts(:one).line_items.first.product
+    assert_raises(ActiveRecord::RecordNotDestroyed, "Product should be destroyed when not in a cart") do
+      delete product_url(product_in_cart)
+    end
+
+    assert Product.exists? product_in_cart.id
+  end
 end
