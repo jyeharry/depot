@@ -22,8 +22,9 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
 
     follow_redirect!
 
+    item = LineItem.order(:updated_at).last
     assert_select "h2", "Your Pragmatic Cart"
-    assert_select "li", products(:pragprog).title
+    assert_select "ul li", /#{item.quantity}\s+\u00D7\s+#{products(:pragprog).title}/
   end
 
   test "should show line_item" do
