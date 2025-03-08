@@ -24,7 +24,11 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
 
     item = LineItem.order(:updated_at).last
     assert_select "h2", "Your Cart"
-    assert_select "td", products(:pragprog).title
+    assert_select "tr" do
+      assert_select "td", item.quantity.to_s
+      assert_select "td", "\u00D7"
+      assert_select "td", products(:pragprog).title
+    end
   end
 
   test "should show line_item" do
