@@ -9,6 +9,17 @@
         <td class="pr-2">
           <%= line_item.product.title %>
         </td>
+        <td class="pr-2">
+          <%= button_to "Remove",
+          line_item,
+          method: line_item.quantity > 1 ? :patch : :delete,
+          params: {
+            line_item: {
+              quantity: line_item.quantity - 1,
+            },
+          },
+          class: "cursor-pointer underline" %>
+        </td>
         <td class="text-right font-bold">
           <%= number_to_currency(line_item.total_price) %>
         </td>
@@ -17,7 +28,7 @@
 
     <tfoot>
       <tr>
-        <th class="text-right pr-2 pt-2" colspan="3">Total:</th>
+        <th class="text-right pr-2 pt-2" colspan="4">Total:</th>
         <td class="text-right pt-2 font-bold border-t-2 border-black">
           <%= number_to_currency(cart.total_price) %>
         </td>
