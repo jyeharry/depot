@@ -2,29 +2,7 @@
   <h2 class="font-bold text-lg mb-3">Your Cart</h2>
 
   <table class="table-auto">
-    <% cart.line_items.each do |line_item| %>
-      <tr>
-        <td class="text-right"><%= line_item.quantity %></td>
-        <td class="px-1">&times;</td>
-        <td class="pr-2">
-          <%= line_item.product.title %>
-        </td>
-        <td class="pr-2">
-          <%= button_to "Remove",
-          line_item,
-          method: line_item.quantity > 1 ? :patch : :delete,
-          params: {
-            line_item: {
-              quantity: line_item.quantity - 1,
-            },
-          },
-          class: "cursor-pointer underline" %>
-        </td>
-        <td class="text-right font-bold">
-          <%= number_to_currency(line_item.total_price) %>
-        </td>
-      </tr>
-    <% end %>
+    <%= render cart.line_items %>
 
     <tfoot>
       <tr>

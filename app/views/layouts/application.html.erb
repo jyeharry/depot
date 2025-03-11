@@ -30,6 +30,12 @@
     <section class="flex h-screen">
       <nav class="bg-green-900 p-6">
         <p class="text-gray-300 leading-8 mb-4"><%= DateTime.now.strftime("%l:%M%P - %B %d %Y") %></p>
+        <% if @cart and not @cart.line_items.empty? %>
+          <div id="cart" class="bg-white rounded p-2">
+            <%= render @cart %>
+          </div>
+        <% end %>
+
         <ul class="text-gray-300 leading-8">
           <li><a href="/">Home</a></li>
           <li><a href="/questions">Questions</a></li>
