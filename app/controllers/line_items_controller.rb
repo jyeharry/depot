@@ -43,10 +43,10 @@ class LineItemsController < ApplicationController
   def update
     respond_to do |format|
       if @line_item.update(line_item_params)
-        format.html { redirect_to cart_path(@line_item.cart), notice: "Line item was successfully updated." }
+        format.html { redirect_to @line_item, notice: "Line item was successfully updated." }
         format.json { render :show, status: :ok, location: @line_item }
       else
-        format.html { redirect_to cart_path(@line_item.cart), status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
@@ -57,7 +57,7 @@ class LineItemsController < ApplicationController
     @line_item.destroy!
 
     respond_to do |format|
-      format.html { redirect_to cart_path(@line_item.cart), status: :see_other, notice: "Line item was successfully destroyed." }
+      format.html { redirect_to line_items_path, status: :see_other, notice: "Line item was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -70,6 +70,6 @@ class LineItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def line_item_params
-      params.expect(line_item: [ :product_id, :quantity ])
+      params.expect(line_item: [ :product_id ])
     end
 end
