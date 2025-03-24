@@ -7,5 +7,5 @@ one:
 
 two:
   product: pragprog
-  cart: two
+  order: one
   price: 9.99
