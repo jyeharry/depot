@@ -49,10 +49,28 @@ class OrdersTest < ApplicationSystemTestCase
     assert_text "Order was successfully destroyed"
   end
 
+  test "revealing and hiding cart" do
+    visit store_index_url
+
+    assert has_no_css? "div#cart"
+    assert has_no_css? "tr.line-item-highlight"
+
+    click_on "Add to cart", match: :first
+
+    assert has_css? "div#cart"
+    assert has_css? "tr.line-item-highlight"
+
+    click_on "Empty Cart"
+
+    assert has_no_css? "div#cart"
+    assert has_no_css? "tr.line-item-highlight"
+  end
+
   test "check dynamic fields" do
     visit store_index_url
 
     click_on "Add to cart", match: :first
+    has_css? "tr.line-item-highlight"
 
     click_on "Checkout"
 
